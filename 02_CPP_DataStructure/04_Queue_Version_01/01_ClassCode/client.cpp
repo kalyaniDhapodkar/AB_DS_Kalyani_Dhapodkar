@@ -11,7 +11,7 @@ MVQueue<long>* pqueue;
 int main(void)
 {
 	// Code
-	pqueue = new MVQueue<long>(10);
+	pqueue = new MVQueue<long>();
 
 	pqueue->PushBack(100);
 	pqueue->PushBack(90);
@@ -23,6 +23,8 @@ int main(void)
 	pqueue->PushBack(30);
 	pqueue->PushBack(20);
 	pqueue->PushBack(10);
+	pqueue->PushBack(99);
+	pqueue->PushBack(23);
 
 	std::cout << std::endl << std::endl;
 	std::cout << "Queue After Push Back." << std::endl;

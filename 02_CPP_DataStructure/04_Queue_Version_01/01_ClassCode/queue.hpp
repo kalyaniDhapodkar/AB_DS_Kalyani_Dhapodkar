@@ -13,7 +13,7 @@
 #define	FAILURE 1
 #endif
 
-#define	DEFAULT_QUEUE_SIZE 	32
+#define	DEFAULT_QUEUE_SIZE 	12
 
 // Typedef
 typedef int	ret_t;
