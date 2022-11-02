@@ -205,7 +205,7 @@ public:
 		return( DataAt(index) );
 	}
 
-	ret_t Replace(long index, T data)
+	T Replace(long index, T data)
 	{
 		// Code	
 		if( !IsArray())
@@ -220,9 +220,11 @@ public:
 			return(FAILURE);
 		}
 
+		T to_return_data = m_data_array[index];
+
 		m_data_array[index] = data;
 
-		return(SUCCESS);
+		return(to_return_data);
 	}
 
 	ret_t Insert(long index, T data)
