@@ -12,5 +12,4 @@ Description :
 			 'MV_Vector.h' header files along with auxillary functions needed to handle error and for
 			 safer memory allocators
 
-	3) MV_Client.c : This file contains interface function calls made by client to invoke different functionalities
-			 for managing data
+	3) MV_Client.c : This file contains interface function calls made by client to invoke different functionalities for managing data
