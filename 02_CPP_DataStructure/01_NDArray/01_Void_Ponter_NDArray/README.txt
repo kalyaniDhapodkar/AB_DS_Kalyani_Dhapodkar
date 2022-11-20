@@ -1,4 +1,4 @@
-Directory : 01_ClassCode_Version_1
+Directory : 01_Void_pointer_NDArray
 
 Files : 1) mv_nd_array.hpp
 	2) mv_nd_array.cpp
