@@ -13,45 +13,53 @@ int main(void)
 	// Code
 	pqueue = new MVQueue<long>();
 
-	pqueue->PushBack(100);
-	pqueue->PushBack(90);
-	pqueue->PushBack(80);
-	pqueue->PushBack(70);
-	pqueue->PushBack(60);
-	pqueue->PushBack(50);
-	pqueue->PushBack(40);
-	pqueue->PushBack(30);
-	pqueue->PushBack(20);
-	pqueue->PushBack(10);
-	pqueue->PushBack(99);
-	pqueue->PushBack(23);
+	pqueue->EnqueBack(100);
+	pqueue->EnqueBack(90);
+	pqueue->EnqueBack(80);
+	pqueue->EnqueBack(70);
+	pqueue->EnqueBack(60);
+	pqueue->EnqueBack(50);
+	pqueue->EnqueBack(40);
+	pqueue->EnqueBack(30);
+	pqueue->EnqueBack(20);
+	pqueue->EnqueBack(10);
+	pqueue->EnqueBack(99);
+	pqueue->EnqueBack(23);
 
 	std::cout << std::endl << std::endl;
 	std::cout << "Queue After Push Back." << std::endl;
-	std::cout << (*pqueue);
+	std::cout << (pqueue);
 
 	std::cout << std::endl << std::endl;
-	std::cout << "Popped Data = " << pqueue->PopFront() << std::endl;
-	std::cout << "Popped Data = " << pqueue->PopFront() << std::endl;
-	std::cout << "Popped Data = " << pqueue->PopFront() << std::endl;
-	std::cout << "Popped Data = " << pqueue->PopFront() << std::endl;
-	std::cout << "Popped Data = " << pqueue->PopFront() << std::endl;
+	std::cout << "Popped Data = " << pqueue->DequeFront() << std::endl;
+	std::cout << "Popped Data = " << pqueue->DequeFront() << std::endl;
+	std::cout << "Popped Data = " << pqueue->DequeFront() << std::endl;
+	std::cout << "Popped Data = " << pqueue->DequeFront() << std::endl;
+	std::cout << "Popped Data = " << pqueue->DequeFront() << std::endl;
 
 	std::cout << std::endl << std::endl;
 	std::cout << "Queue After Pop Front." << std::endl;
-	std::cout << (*pqueue);	
+	std::cout << (pqueue);	
 
-	pqueue->PushBack(1111);
-	pqueue->PushBack(5647);
-	pqueue->PushBack(3488);
+	std::cout << "Size: " << pqueue->QSize() << std::endl;
+
+	pqueue->EnqueBack(1111);
+	pqueue->EnqueBack(5647);
+	pqueue->EnqueBack(3488);
 
 	std::cout << std::endl << std::endl;
 	std::cout << "Queue After Push Back." << std::endl;
-	std::cout << (*pqueue);
+	std::cout << (pqueue);
 
-	std::cout << "END" << std::endl;
+	std::cout << "Size: " << pqueue->QSize() << std::endl;
 
 	delete(pqueue);
+
+	std::cout << "Size: " << pqueue->QSize() << std::endl;
+
+	std::cout << (pqueue);
+
+	std::cout << "------------END-----------" << std::endl;
 
 	return(SUCCESS);
 }	

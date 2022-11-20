@@ -42,8 +42,8 @@ class MVVector
 private:
 
 	T* m_data_array;
-	size_t 	m_no_of_elements;
-	size_t  m_capacity;
+    long  m_no_of_elements;
+    long  m_capacity;
 
 	bool IsArray() const
 	{
@@ -58,42 +58,42 @@ public:
 	MVVector()
 	{
 		// Code
-		m_data_array = NULL;
-		m_no_of_elements = 0;
-		m_capacity = DEFAULT_SIZE;
+		this->m_data_array = NULL;
+		this->m_no_of_elements = 0;
+		this->m_capacity = DEFAULT_SIZE;
 
-		m_data_array = (T*)realloc(m_data_array, DEFAULT_SIZE * sizeof(T));
+		this->m_data_array = (T*)realloc(this->m_data_array, DEFAULT_SIZE * sizeof(T));
 		if( NULL == m_data_array)
 		{
 			std::cerr << "ERROR: Out of Memory." << std::endl;
 		}
 
-		memset(m_data_array, 0, DEFAULT_SIZE * sizeof(T));
+		memset(this->m_data_array, 0, DEFAULT_SIZE * sizeof(T));
 	}
 
-	MVVector(size_t new_size)
+	MVVector(size_t custom_size)
 	{
 		// Code
-		m_data_array = NULL;
-		m_no_of_elements = 0;
-		m_capacity = DEFAULT_SIZE;
+		this->m_data_array = NULL;
+		this->m_no_of_elements = 0;
+		this->m_capacity = custom_size;
 
-		m_data_array = (T*)realloc(m_data_array, new_size * sizeof(T));
+		this->m_data_array = (T*)realloc(this->m_data_array, custom_size * sizeof(T));
 		if( NULL == m_data_array)
 		{
 			std::cerr << "ERROR: Out of Memory." << std::endl;
 		}
 
-		memset(m_data_array, 0, DEFAULT_SIZE * sizeof(T));
+		memset(this->m_data_array, 0, DEFAULT_SIZE * sizeof(T));
 	}
 
 	~MVVector()
 	{
 		// Code
-		if(m_data_array)
+		if(this->m_data_array)
 		{
-			free(m_data_array);
-			m_data_array = NULL;
+			free(this->m_data_array);
+			this->m_data_array = NULL;
 		}
 
 		this->m_no_of_elements = 0;
@@ -104,20 +104,39 @@ public:
 		// Code
 		if( !(IsArray()) )
 		{
-			std::cerr << "ERROR: Queue Not Found." << std::endl;
+			std::cerr << "ERROR: Vector Not Found." << std::endl;
 			return(FAILURE);
 		}
 
-		// Code
 		this->m_data_array[this->m_no_of_elements] = data;
+		this->m_no_of_elements++;
 
 		if(this->m_no_of_elements == this->m_capacity)
 		{
 			this->m_capacity = this->m_capacity * 2;
 			this->m_data_array = (T*)realloc(this->m_data_array, this->m_capacity * sizeof(T));
 		}
+	
+		return(SUCCESS);
+	}
 
-		this->m_no_of_elements++;
+	ret_t PushFront(T data)
+	{
+		// Code
+ 	   	 this->m_no_of_elements++;
+	
+	 	   if (this->m_capacity >= this->m_no_of_elements)
+	 	   {
+	 	        this->m_capacity =  this->m_capacity * 2;
+	 	        this->m_data_array = (T*)realloc( this->m_data_array,  this->m_capacity * sizeof(T));
+	 	   }
+	
+	 	   for(long le = this->m_no_of_elements-1; le > 0; le--)
+	 	   {
+	 	       this->m_data_array[le] = this->m_data_array[le-1];
+	 	   }
+	
+	 this->m_data_array[0] = data;
 
 		return(SUCCESS);
 	}
@@ -147,21 +166,21 @@ public:
 	{
 		// Code
 		if( !(IsArray()) ||
-			0 == this->m_no_of_elements )
+			0 == m_no_of_elements )
 		{
-			std::cerr << "ERROR: Queue Not Found." << std::endl;
+			std::cerr << "ERROR: Vector Not Found." << std::endl;
 			return((T)0);
 		}
 
-		this->m_no_of_elements--;
+		m_no_of_elements--;
 
-		T to_return_data = this->m_data_array[this->m_no_of_elements];
+		T to_return_data = m_data_array[m_no_of_elements];
 
-		if( this->m_no_of_elements <= this->m_capacity/2 &&
-			0 != this->m_no_of_elements)
+		if( m_no_of_elements <= m_capacity/2 &&
+			0 != m_no_of_elements)
 		{
-			this->m_capacity = this->m_capacity / 2;
-			this->m_data_array = (T*)realloc(this->m_data_array, this->m_capacity * sizeof(T));
+			m_capacity = m_capacity / 2;
+			m_data_array = (T*)realloc(m_data_array, m_capacity * sizeof(T));
 		}
 	
 		return(to_return_data);
@@ -169,6 +188,7 @@ public:
 
 	T PopFront()
 	{
+		// Code
 		T to_return_data = this->m_data_array[0];
 
 		for(long le = 0; le < this->m_no_of_elements; le++)
@@ -192,40 +212,35 @@ public:
 	{
 		// Code
 		if( !(IsArray()) ||
-			0 == this->m_no_of_elements)
+			0 == m_no_of_elements)
 		{
 			std::cerr << "ERROR: Vector Not Found." << std::endl;
 			return((T)0);
 		}
 
-		if( index >= this->m_no_of_elements)
+		if( index >= m_no_of_elements)
 		{
 			std::cerr << "ERROR: Index Out of Bound." << std::endl;
 			return((T)0);
 		}
 
-		return(this->m_data_array[index]);
+		return(m_data_array[index]);
 	}
 
-	T operator[](long index)const
-	{
-		// Code
-		return(DataAt(index));
-	}
+	/*
+		T operator[](long index)const
+
+		--> T operator[](const MVVector* this,
+						 const long index)
+	*/
+
+	T operator[](long index)const { return(DataAt(index)); }
 
 	// Getter size
-	size_t Size()const
-	{
-		// Code
-		return(this->m_no_of_elements);
-	}
+	size_t Size()const { return(m_no_of_elements); }
 
 	// Getter Capacity
-	size_t Capacity()const
-	{
-		// Code
-		return(this->m_capacity);
-	}
+	size_t Capacity()const { return(m_capacity); }
 
 	class Iterator
 	{
@@ -354,7 +369,7 @@ public:
 
 template<typename T>
 std::ostream& operator<<(std::ostream& out, MVVector<T>& vec)
-{	
+{
 	std::cout << "{START}-" ;
 	for(auto itr = vec.begin(); itr != vec.end(); ++itr)
 	{
