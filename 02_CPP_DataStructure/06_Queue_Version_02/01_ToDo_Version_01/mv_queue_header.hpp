@@ -4,7 +4,6 @@
 // Headers
 #include <cassert>
 
-#include "mv_base_iterator.hpp"
 #include "mv_vector_header.hpp"
 
 // Constant Literals

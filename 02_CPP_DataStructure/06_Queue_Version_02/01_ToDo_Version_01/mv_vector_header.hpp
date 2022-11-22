@@ -34,7 +34,6 @@ std::ostream& operator<<(std::ostream& out, MVVector<T>*& vec);
 		Data Object : data menbers
 		Functions 	: Member Functiions/ Methods
 */
-
 // Type Definition
 template<typename T>
 class MVVector

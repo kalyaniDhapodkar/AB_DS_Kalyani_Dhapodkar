@@ -1,4 +1,4 @@
- : 02_ToDo_Version_2
+Directory : 02_Vector_Version_02\02_ToDo_Version_2
 
 Files : 1) mv_vector.hpp
 	2) mv_client.cpp
