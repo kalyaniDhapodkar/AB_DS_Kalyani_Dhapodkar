@@ -39,14 +39,12 @@ int main(void)
 	mv_queue_enqueue(pqueue, (data_t) 7000);
 	mv_queue_enqueue(pqueue, (data_t) 8000);
 	mv_queue_enqueue(pqueue, (data_t) 9000);
-	// mv_queue_enqueue(pqueue, (data_t) 10000);
-
-	printf("No Of Elements : %lld\n", (long long)mv_queue_length(pqueue));
-
-	printf("\n\nhead - %d\n", (long)pqueue->head);
-	printf("tail - %d\n", (long)pqueue->tail);
+	mv_queue_enqueue(pqueue, (data_t) 10000);
 
 	mv_queue_print_data(pqueue, print_data);
+	printf("\nNo Of Elements : %lld\n", (long long)mv_queue_length(pqueue));
+	printf("\nhead - %d\n", (long)pqueue->head);
+	printf("tail - %d\n", (long)pqueue->tail);
 
 	printf("\n\n");
 	fprintf(stdout,"Dequeued data:");
@@ -65,19 +63,22 @@ int main(void)
 	print_data(mv_queue_dequeue(pqueue));
 	fprintf(stdout,"\n");
 
-	printf("\n\nhead - %d\n", (long)pqueue->head);
+	mv_queue_print_data(pqueue, print_data);
+	printf("\nNo Of Elements : %lld\n", (long long)mv_queue_length(pqueue));
+	printf("\nhead - %d\n", (long)pqueue->head);
 	printf("tail - %d\n", (long)pqueue->tail);
 
-	printf("No Of Elements : %lld\n", (long long)mv_queue_length(pqueue));
+
+	mv_queue_enqueue(pqueue, (data_t) 987);
+	mv_queue_enqueue(pqueue, (data_t) 560);
+	mv_queue_enqueue(pqueue, (data_t) 345);
+	mv_queue_enqueue(pqueue, (data_t) 8905);
+
 	mv_queue_print_data(pqueue, print_data);
 
-
-	// mv_queue_enqueue(pqueue, (data_t) 987);
-	// mv_queue_enqueue(pqueue, (data_t) 560);
-	// mv_queue_enqueue(pqueue, (data_t) 345);
-	// mv_queue_enqueue(pqueue, (data_t) 8905);
-
-	// mv_queue_print_data(pqueue, print_data);
+	printf("\nNo Of Elements : %lld\n", (long long)mv_queue_length(pqueue));
+	printf("\nhead - %d\n", (long)pqueue->head);
+	printf("tail - %d\n", (long)pqueue->tail);
 
 	mv_queue_destroy( &pqueue, delete_data);
 

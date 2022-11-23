@@ -124,31 +124,6 @@ void *deallocate_pqueue(void *param)
 }
 
 
-// static long get_head_print(p_mv_queue_t pqueue)
-// {
-// 	long h = pqueue->head;
-
-// 	if( h >= pqueue->length )
-// 	{
-// 		h = 0;
-// 	}
-
-// 	return(h);
-// }
-
-// static long get_tail_print(p_mv_queue_t pqueue)
-// {
-// 	long t = pqueue->tail - 1;
-
-// 	if( t < 0 )
-// 	{
-// 		t = pqueue->length - 1; 
-// 	}
-
-// 	return(t);
-// }
-
-
 //	Queue Interface Functions
 extern p_mv_queue_t mv_create_default_queue(void)
 {
@@ -178,22 +153,6 @@ extern p_mv_queue_t mv_create_default_queue(void)
 	return (pqueue);
 	
 }
-
-/*
-	no of elements = 3
-	length = 10
-	Queue
-	[12	|13	|14	|111|	|	|	|	|	|	]
-	0	1	2	3	4	5	6	7	8	9
-	|				|
-	HEAD			TAIL
-	Queue
-	[	|	|14	|111|112|113|14	|15	|16	|17	]
-	0	1	2	3	4	5	6	7	8	9
-	|		|
-	TAIL	HEAD
-	Enqueue <==> Push Back
-*/
 
 extern p_mv_queue_t mv_create_custom_queue(size_t nr_of_elements)
 {
@@ -270,22 +229,6 @@ extern ret_t mv_queue_enqueue(p_mv_queue_t pqueue, data_t data)
 	
 }
 
-/*
-	Dequeue <==> PopFront
-	Length = 10
-	Queue
-	[	|	|	|	|	|11	|12	|13	|14	|	]
-	0	1	2	3	4	5	6	7	8	9
-						|				|
-						HEAD			TAIL
-	Dequeue(Q);
-	Queue
-	[11	|12	|13	|14	|15	|	|	|	|	|	]
-	0	1	2	3	4	5	6	7	8	9
-	|					|
-	HEAD				TAIL
-	Dequeue(Q);
-*/
 
 extern data_t mv_queue_dequeue(p_mv_queue_t pqueue)
 {
@@ -358,18 +301,16 @@ extern ret_t mv_queue_print_data(p_mv_queue_t pqueue, PRINTDATAPROC pprintfunc)
 
 	fprintf(stdout, "\nQUEUE:\n");
 	fprintf(stdout, "\n{START}-");
-
-	for (long le = pqueue->head;  le != pqueue->no_of_elements-1;  ++le)
+ 	int count = 0;
+	for (long le = pqueue->head;  count != pqueue->no_of_elements;  count++)
 	{
 		if (le == pqueue->length)
 		{
 			le = 0;
 		}
 		pprintfunc(pqueue->queue[le]);
+		le++;
 	}
-
-	pprintfunc( pqueue->queue[ pqueue->no_of_elements - 1] );
-
 
 	fprintf(stdout, "{END}\n");
 
@@ -441,16 +382,17 @@ extern ret_t mv_queue_destroy(pp_mv_queue_t ppqueue, DELETEDATAPROC pdeletefunc)
 
 	fprintf(stdout, "\nDestroying QUEUE:\n");
 	fprintf(stdout, "\n{START}\n");
-	for (long le = pqueue->head; le != pqueue->no_of_elements-1; ++le)
+
+	int count = 0;
+	for (long le = pqueue->head; count != pqueue->no_of_elements; count++)
 	{
 		if (le == pqueue->length)
 		{
 			le = 0;
 		}
 		pdeletefunc(pqueue->queue[le]);
+		le++;
 	}
-
-	pdeletefunc( pqueue->queue[ pqueue->no_of_elements - 1] );
 
 	fprintf(stdout, "{END}\n");
 

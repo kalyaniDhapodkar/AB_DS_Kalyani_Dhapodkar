@@ -123,7 +123,7 @@ static  ret_t   error_checking( const int assert_condition,
 {
     // Code
 
-    ret_t status;
+    ret_t status = SUCCESS;
 
     #ifdef DEBUG
         // Assertion
@@ -297,7 +297,7 @@ static ret_t check_list_conditions(p_mv_dcll_t plist, int conditions)
     {
         RETURN_FAILURE( ERROR_CHECKING( 1,
                                         NULL == plist,
-                                        "ERROR: List not found",
+                                        "\nERROR: List not found",
                                         NULL,
                                         NULL) );
     }
@@ -306,7 +306,7 @@ static ret_t check_list_conditions(p_mv_dcll_t plist, int conditions)
     {
         RETURN_FAILURE( ERROR_CHECKING( 1,
                                         plist->p_head == plist->p_tail,
-                                        "ERROR: List is empty",
+                                        "\nERROR: List is empty",
                                         NULL,
                                         NULL) ); 
     }
@@ -396,14 +396,12 @@ extern ret_t mv_dcll_insert_at(p_mv_dcll_t plist, data_t new_data, size_t index)
     else if( index == plist->size )
         return( mv_dcll_insert_back(plist, new_data) );
 
-    //printf("--1");
 
     RETURN_FAILURE( ERROR_CHECKING( index < plist->size,
-                                    index > plist->size,
-                                    "ERROR: Index Out Of Bound.",
+                                    index >= plist->size,
+                                    "\nERROR: Index Out Of Bound.",
                                     NULL,
                                     NULL) ); 
-    //printf("--2");
 
     p_node_t prunner = plist->p_head;
 
@@ -438,7 +436,7 @@ extern ret_t mv_dcll_insert_before(p_mv_dcll_t plist, data_t new_data, data_t e_
 
     RETURN_FAILURE( ERROR_CHECKING( NULL != pcomparedataproc,
                                     NULL == pcomparedataproc,
-                                    "ERROR: Compare Callback must not be NULL",
+                                    "\nERROR: Compare Callback must not be NULL",
                                     NULL,
                                     NULL) ); 
 
@@ -448,7 +446,7 @@ extern ret_t mv_dcll_insert_before(p_mv_dcll_t plist, data_t new_data, data_t e_
     {
         RETURN_FAILURE( ERROR_CHECKING( 1,
                                         prunner == plist->p_head,
-                                        "ERROR: Existing Data no found",
+                                        "\nERROR: Existing Data no found",
                                         NULL,
                                         NULL) );
 
@@ -486,7 +484,7 @@ extern ret_t mv_dcll_insert_after(p_mv_dcll_t plist, data_t new_data, data_t e_d
 
     RETURN_FAILURE( ERROR_CHECKING( NULL != pcomparedataproc,
                                     NULL == pcomparedataproc,
-                                    "ERROR: Compare Callback must not be NULL",
+                                    "\nERROR: Compare Callback must not be NULL",
                                     NULL,
                                     NULL) ); 
 
@@ -496,7 +494,7 @@ extern ret_t mv_dcll_insert_after(p_mv_dcll_t plist, data_t new_data, data_t e_d
     {
         RETURN_FAILURE( ERROR_CHECKING( 1,
                                         prunner == plist->p_head,
-                                        "ERROR: Existing Data no found",
+                                        "\nERROR: Existing Data no found",
                                         NULL,
                                         NULL) );
 
@@ -566,7 +564,7 @@ extern data_t mv_dcll_remove_at(p_mv_dcll_t plist, size_t index)
 
     RETURN_NULL( ERROR_CHECKING(index < plist->size,
                                 index >= plist->size,
-                                "ERROR: Index Out Of Bound.",
+                                "\nERROR: Index Out Of Bound.",
                                 NULL,
                                 NULL) );
 
@@ -596,7 +594,7 @@ extern data_t mv_dcll_remove_before(p_mv_dcll_t plist, data_t e_data, COMPAREDAT
 
     RETURN_NULL( ERROR_CHECKING(NULL != pcomparedataproc,
                                 NULL == pcomparedataproc,
-                                "ERROR: Compare Callback must not be NULL",
+                                "\nERROR: Compare Callback must not be NULL",
                                 NULL,
                                 NULL) ); 
 
@@ -606,7 +604,7 @@ extern data_t mv_dcll_remove_before(p_mv_dcll_t plist, data_t e_data, COMPAREDAT
     {
         RETURN_NULL( ERROR_CHECKING(1,
                                     prunner == plist->p_head,
-                                    "ERROR: Existing Data no found",
+                                    "\nERROR: Existing Data no found",
                                     NULL,
                                     NULL) );
 
@@ -619,7 +617,7 @@ extern data_t mv_dcll_remove_before(p_mv_dcll_t plist, data_t e_data, COMPAREDAT
     if( prunner->p_prev == plist->p_head )
         prunner = plist->p_head;
 
-    return( mv_dcll_generic_remove(plist, prunner) );
+    return( mv_dcll_generic_remove(plist, prunner->p_prev) );
 }
 
 /**
@@ -640,7 +638,7 @@ extern data_t mv_dcll_remove_after(p_mv_dcll_t plist, data_t e_data, COMPAREDATA
 
     RETURN_NULL( ERROR_CHECKING(NULL != pcomparedataproc,
                                 NULL == pcomparedataproc,
-                                "ERROR: Compare Callback must not be NULL",
+                                "\nERROR: Compare Callback must not be NULL",
                                 NULL,
                                 NULL) ); 
 
@@ -650,7 +648,7 @@ extern data_t mv_dcll_remove_after(p_mv_dcll_t plist, data_t e_data, COMPAREDATA
     {
         RETURN_NULL( ERROR_CHECKING(1,
                                     prunner == plist->p_head,
-                                    "ERROR: Existing Data no found",
+                                    "\nERROR: Existing Data no found",
                                     NULL,
                                     NULL) );
 
@@ -663,7 +661,7 @@ extern data_t mv_dcll_remove_after(p_mv_dcll_t plist, data_t e_data, COMPAREDATA
     if( prunner == plist->p_tail )
         prunner = plist->p_head;
 
-    return( mv_dcll_generic_remove(plist, prunner) );
+    return( mv_dcll_generic_remove(plist, prunner->p_next) );
 }
 
 
@@ -750,15 +748,13 @@ extern ret_t mv_dcll_print_forward(p_mv_dcll_t plist, SHOWDATAPROC pshowdataproc
     ASSERTION( NULL != plist)
     #endif
 
-    printf("--2");
     RETURN_FAILURE( check_list_conditions(plist, CHECK_LIST) );
 
     RETURN_FAILURE( ERROR_CHECKING( NULL != pshowdataproc,
                                     NULL == pshowdataproc,
-                                    "ERROR: Show Data Proc must not be NULL.",
+                                    "\nERROR: Show Data Proc must not be NULL.",
                                     NULL,
                                     NULL) );
-    //printf("--3");
 
     p_node_t prunner = plist->p_head->p_next;
 
@@ -767,7 +763,6 @@ extern ret_t mv_dcll_print_forward(p_mv_dcll_t plist, SHOWDATAPROC pshowdataproc
     for( prunner; prunner != plist->p_head; prunner = prunner->p_next )
         pshowdataproc(prunner->key);
     fprintf(stdout, "{END}\n");
-    //printf("--4");
 
     return(SUCCESS);
 }
@@ -789,7 +784,7 @@ extern ret_t mv_dcll_print_reverse(p_mv_dcll_t plist, SHOWDATAPROC pshowdataproc
 
     RETURN_FAILURE( ERROR_CHECKING( NULL != pshowdataproc,
                                     NULL == pshowdataproc,
-                                    "ERROR: Show Data Proc must not be NULL.",
+                                    "\nERROR: Show Data Proc must not be NULL.",
                                     NULL,
                                     NULL) );
 
@@ -827,7 +822,7 @@ extern ret_t mv_dcll_destroy(pp_mv_dcll_t pplist, DELETEDATAPROC pdeletedataproc
 
     RETURN_FAILURE( ERROR_CHECKING( NULL != pdeletedataproc,
                                     NULL == pdeletedataproc,
-                                    "ERROR: Delete Data Proc must not be NULL.",
+                                    "\nERROR: Delete Data Proc must not be NULL.",
                                     NULL,
                                     NULL) );
 

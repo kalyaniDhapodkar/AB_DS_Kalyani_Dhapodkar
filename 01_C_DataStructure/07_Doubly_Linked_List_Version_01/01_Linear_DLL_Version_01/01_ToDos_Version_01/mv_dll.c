@@ -1,16 +1,5 @@
 
 
-/**
- * @file    mv_dll.c
- * @author  MarshalligVoid  (marshalligvoid@gmail.com)
- * @brief   This file is the implemention/definition of all the interface functions and helper functions
- *          required to implement DOUBLY LINKED LIST
- * @date    06/11/2022
- * @version 1.0
- * 
- * @copyright   Copyrights (c) 2022
- */
-
 //  Headers
 #include    <stdio.h>
 #include    <stdlib.h>
@@ -81,11 +70,6 @@ static void* exit_program(void* param);
 
 //  List Helper Functions
 
-/**
- * @function    This function will allocate a memory of 'no_of_bytes' size
- * @params      no_of_bytes
- * @returns     the pointer to the memory dynamically allocated of 'no_of_bytes' size
- */
 static void* Xmalloc(size_t no_of_bytes)
 {
     // Code
@@ -100,18 +84,6 @@ static void* Xmalloc(size_t no_of_bytes)
     return(p);
 } 
 
-/**
- * @function    This function will check error and either print erroe message of will do assertion
- * @params      1) Assert Condition
- *              2) String of Assert condition
- *              3) File where assertion occured
- *              4) Line no where assertion occured
- *              5) Error Condition
- *              6) Error Message
- *              7) Error Handler
- *              8) Params for Error Handler
- * @returns     Status of the error / asssert checking
- */
 static  ret_t   error_checking( const int assert_condition,
                                 const char* assert_condition_str,
                                 const char* file_name,
@@ -156,11 +128,6 @@ static  ret_t   error_checking( const int assert_condition,
     return(status);
 }
 
-/**
- * @function    This function will exit the executing program
- * @params      Pointer to void
- * @returns     Pointer to void
- */
 static void* exit_program(void* param)
 {
     // Code
@@ -169,11 +136,6 @@ static void* exit_program(void* param)
     return(NULL);
 }
 
-/**
- * @function    This function will create a node 
- * @params      New data to assign to new node
- * @returns     pointer to allocated node
- */
 static p_node_t create_node(data_t new_data)
 {
     // Code
@@ -192,11 +154,6 @@ static p_node_t create_node(data_t new_data)
     return(new_node);
 }
 
-/**
- * @function    This function will create an object of DOUBLY LINKED LIST
- * @params  
- * @returns     The pointer the new list object
- */
 static p_mv_dll_t create_list(void)
 {
     // Code
@@ -220,14 +177,6 @@ static p_mv_dll_t create_list(void)
     return(plist);
 }
 
-/**
- * @function    This function is going to insert a new node the dll
- * @params      1)  List
- *              2)  First (Previous Node for new node)
- *              3)  Mid (New Node)
- *              4)  Last  (Next Node for new node)
- * @returns     status
- */
 static ret_t mv_dll_generic_insert(p_mv_dll_t plist, p_node_t first,  p_node_t mid, p_node_t last)
 {
     //  Code
@@ -251,12 +200,6 @@ static ret_t mv_dll_generic_insert(p_mv_dll_t plist, p_node_t first,  p_node_t m
     return(SUCCESS);
 }
 
-/**
- * @function    This function will remove the 'd_node' from the list
- * @params      1) List
- *              2) To Remove node
- * @returns     The data of the removed node
- */
 static data_t mv_dll_generic_remove(p_mv_dll_t plist, p_node_t d_node)
 {
     // Code
@@ -289,12 +232,6 @@ static data_t mv_dll_generic_remove(p_mv_dll_t plist, p_node_t d_node)
     return(to_return_data);
 }
 
-/**
- * @function    This function checks for list present and list empty
- * @params      1) List
- *              2) Condition to check
- * @return      Status of the condition checking
- */
 static ret_t check_list_conditions(p_mv_dll_t plist, int conditions)
 {
     // Code
@@ -321,24 +258,12 @@ static ret_t check_list_conditions(p_mv_dll_t plist, int conditions)
 
 //  List Interface Functions
 
-/**
- * @function    This function will return a pointer to an DOUBLY LIST OBJECT
- * @params  
- * @returns     pointer to the created list object 
- */
 extern p_mv_dll_t  create_doubly_list()
 {
     // Code
     return( create_list() );
 }
 
-/**
- * @function    This function will add a new data to the FRONT of the list
- * @params      1) List
- *              2) New Data
- * @returns     status of insertion
- *              SUCCESS if successful / FAILURE if unsuccessful
- */
 extern ret_t mv_dll_insert_front(p_mv_dll_t plist, data_t new_data)
 {
     // Code
@@ -356,13 +281,7 @@ extern ret_t mv_dll_insert_front(p_mv_dll_t plist, data_t new_data)
 }
 
 //  List Data Insertion Functions
-/**
- * @function    This function will add a new data to the BACK of the list
- * @params      1) List
- *              2) New Data
- * @returns     status of insertion
- *              SUCCESS if successful / FAILURE if unsuccessful
- */
+
 extern ret_t mv_dll_insert_back(p_mv_dll_t plist, data_t new_data)
 {
     // Code
@@ -378,15 +297,7 @@ extern ret_t mv_dll_insert_back(p_mv_dll_t plist, data_t new_data)
 
     return( mv_dll_generic_insert(plist, plist->p_tail, new_node, plist->p_tail->p_next ) );
 }
-        
-/**
- * @function    This function will add a new data at a specified INDEX in the list
- * @params      1) List
- *              2) New Data
- *              3) INDEX
- * @returns     status of insertion
- *              SUCCESS if successful / FAILURE if unsuccessful
- */
+    
 extern ret_t mv_dll_insert_at(p_mv_dll_t plist, data_t new_data, size_t index)
 {
     //  Code
@@ -401,14 +312,12 @@ extern ret_t mv_dll_insert_at(p_mv_dll_t plist, data_t new_data, size_t index)
     else if( index == plist->size )
         return( mv_dll_insert_back(plist, new_data) );
 
-    //printf("--1");
 
     RETURN_FAILURE( ERROR_CHECKING( index < plist->size,
                                     index > plist->size,
                                     "ERROR: Index Out Of Bound.",
                                     NULL,
                                     NULL) ); 
-    //printf("--2");
 
     p_node_t prunner = plist->p_head;
 
@@ -422,15 +331,6 @@ extern ret_t mv_dll_insert_at(p_mv_dll_t plist, data_t new_data, size_t index)
     return( mv_dll_generic_insert(plist, prunner, new_node, prunner->p_next ) );
 }
 
-/**
- * @function    This function will add a new data BEFORE an existing data
- * @params      1) List
- *              2) New Data
- *              3) Existing Data
- *              4) Compare Callback function pointer
- * @returns     status of insertion
- *              SUCCESS if successful / FAILURE if unsuccessful
- */
 extern ret_t mv_dll_insert_before(p_mv_dll_t plist, data_t new_data, data_t e_data, COMPAREDATAPROC  pcomparedataproc)
 {
     // Code
@@ -470,15 +370,6 @@ extern ret_t mv_dll_insert_before(p_mv_dll_t plist, data_t new_data, data_t e_da
     return( mv_dll_generic_insert(plist,prunner->p_prev, new_node, prunner) );
 }
 
-/**
- * @function    This function will add a new data AFTER an existing data
- * @params      1) List
- *              2) New Data
- *              3) Existing Data
- *              4) Compare Callback function pointer
- * @returns     status of insertion
- *              SUCCESS if successful / FAILURE if unsuccessful
- */
 extern ret_t mv_dll_insert_after(p_mv_dll_t plist, data_t new_data, data_t e_data, COMPAREDATAPROC pcomparedataproc)
 {
     // Code
@@ -519,11 +410,7 @@ extern ret_t mv_dll_insert_after(p_mv_dll_t plist, data_t new_data, data_t e_dat
 }
 
 //  List Data Removal Functions
-/**
- * @function    This function will remove data from FRONT of the list
- * @params      List
- * @returns     Removed data from the list OR NULL if no data.
- */
+
 extern data_t mv_dll_remove_front(p_mv_dll_t plist)
 {
     // Code
@@ -536,11 +423,6 @@ extern data_t mv_dll_remove_front(p_mv_dll_t plist)
     return( mv_dll_generic_remove(plist, plist->p_head->p_next) );
 }
 
-/**
- * @function    This function will remove data from BACK of the list
- * @params      List
- * @returns     Removed data from the list OR NULL if no data.
- */
 extern data_t mv_dll_remove_back(p_mv_dll_t plist)
 {
 
@@ -554,12 +436,6 @@ extern data_t mv_dll_remove_back(p_mv_dll_t plist)
     return( mv_dll_generic_remove(plist, plist->p_tail) );
 }
 
-/**
- * @function    This function will remove data from list from a specific INDEX
- * @params      1) List
- *              2) INDEX
- * @returns     Removed data from the list OR NULL if no data.
- */
 extern data_t mv_dll_remove_at(p_mv_dll_t plist, size_t index)
 {
     // Code
@@ -583,13 +459,6 @@ extern data_t mv_dll_remove_at(p_mv_dll_t plist, size_t index)
     return( mv_dll_generic_remove(plist, prunner) ); 
 }
 
-/**
- * @function    This function will remove data BEFORE an existing data
- * @params      1) List
- *              2) Existing Data
- *              3) Compare Callback function pointer
- * @returns     Removed data form the list OR NULL if no data.
- */
 extern data_t mv_dll_remove_before(p_mv_dll_t plist, data_t e_data, COMPAREDATAPROC pcomparedataproc)
 {
     // Code
@@ -630,13 +499,6 @@ extern data_t mv_dll_remove_before(p_mv_dll_t plist, data_t e_data, COMPAREDATAP
     return( mv_dll_generic_remove(plist, prunner) );
 }
 
-/**
- * @function    This function will remove data AFTER an existing data
- * @params      1) List
- *              2) Existing Data
- *              3) Compare Callback function pointer
- * @returns     Removed data from the list OR NULL is no data.
- */
 extern data_t mv_dll_remove_after(p_mv_dll_t plist, data_t e_data, COMPAREDATAPROC pcomparedataproc)
 {
     // Code
@@ -681,11 +543,6 @@ extern data_t mv_dll_remove_after(p_mv_dll_t plist, data_t e_data, COMPAREDATAPR
 
 //  List Data Getter Functions
 
-/**
- * @function    This function will return the head data of the list
- * @params      List
- * @returns     Data of head of the list if present else NULL.
- */
 extern data_t mv_dll_get_head(p_mv_dll_t plist)
 {
     // Code
@@ -698,11 +555,6 @@ extern data_t mv_dll_get_head(p_mv_dll_t plist)
     return( plist->p_head->p_next->key );
 }
 
-/**
- * @function    This function will return the tail of the list 
- * @params      List
- * @returns     Data of tail of the list if present else NULL.
- */
 extern data_t mv_dll_get_tail(p_mv_dll_t plist)
 {
     // Code
@@ -715,11 +567,6 @@ extern data_t mv_dll_get_tail(p_mv_dll_t plist)
     return( plist->p_tail->key );
 }
 
-/**
- * @function    This function will return the size(no of elements) of list
- * @params      List
- * @returns     Size(No of elements)
- */
 extern size_t mv_dll_get_size(p_mv_dll_t plist)
 {
     // Code
@@ -733,12 +580,6 @@ extern size_t mv_dll_get_size(p_mv_dll_t plist)
     return( plist->size );
 }
 
-/**
- * @function    This function will return if list is present or not
- * @params      List
- * @returns     TRUE is list present 
- *              FALSE if list not present
- */
 extern bool_t mv_dll_empty(p_mv_dll_t plist)
 {
     if( NULL == plist   ||
@@ -749,12 +590,6 @@ extern bool_t mv_dll_empty(p_mv_dll_t plist)
 }
 
 //  List Show Data Functions
-/**
- * @function    This function will print the data in forward order
- * @params      1) List
- *              2) Show Data Callback function pointer
- * @returns     Status of printing data
- */
 extern ret_t mv_dll_print_forward(p_mv_dll_t plist, SHOWDATAPROC pshowdataproc)
 {
     // Code
@@ -782,12 +617,6 @@ extern ret_t mv_dll_print_forward(p_mv_dll_t plist, SHOWDATAPROC pshowdataproc)
     return(SUCCESS);
 }
 
-/**
- * @function    This function will print the data in reverse order
- * @params      1) List
- *              2) Show Data Callback function pointer
- * @returns     Staus of printing data
- */
 extern ret_t mv_dll_print_reverse(p_mv_dll_t plist, SHOWDATAPROC pshowdataproc)
 {
     // Code
@@ -814,12 +643,6 @@ extern ret_t mv_dll_print_reverse(p_mv_dll_t plist, SHOWDATAPROC pshowdataproc)
     return(SUCCESS);
 }
 
-/**
- * @function    This function will destroy the passed list
- * @params      1) Pointer to list
- *              2) Destroy Data Callback function pointer
- * @returns     Status of detroying the list
- */
 extern ret_t mv_dll_destroy(pp_mv_dll_t pplist, DELETEDATAPROC pdeletedataproc)
 {
     // Code

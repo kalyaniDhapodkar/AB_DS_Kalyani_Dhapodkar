@@ -27,6 +27,15 @@ void print_long_data(data_t data)
 	fprintf(stdout, "{%lld}->", (long long)data);
 }
 
+ret_t compare_data(data_t data1, data_t data2)
+{
+    // Code
+    if( (long long)data1 == (long long)data2 )
+        return(SUCCESS);
+
+    return(FAILURE);
+}
+
 int main(void)
 {
 	// Code
@@ -39,7 +48,7 @@ int main(void)
 		mv_dcll_insert_back( plist, (data_t)(long long)( le * 13 ) );
 	} 
 	
-	fprintf(stdout, "DCLL After List Insert Front:\n");
+	fprintf(stdout, "\nDCLL After List Insert Back:\n");
 	mv_dcll_print_forward(plist, print_long_data);
 	mv_dcll_print_reverse(plist, print_long_data);
 	
@@ -50,7 +59,7 @@ int main(void)
 		mv_dcll_insert_front( plist, (data_t)(long long)( le * 59 ) );
 	} 
 	
-	fprintf(stdout, "DCLL After List Insert Front:\n");
+	fprintf(stdout, "\nDCLL After List Insert Front:\n");
 	mv_dcll_print_forward(plist, print_long_data);
 	mv_dcll_print_reverse(plist, print_long_data);
 
@@ -61,13 +70,94 @@ int main(void)
 	mv_dcll_insert_at(plist, (data_t)(long long)(90123), 12);
 	mv_dcll_insert_at(plist, (data_t)(long long)(128934), 18);
 	mv_dcll_insert_at(plist, (data_t)(long long)(98763412), 22);
-	mv_dcll_insert_at(plist, (data_t)(long long)(123123123), 99);
-	
+
+	NEW_LINE;
+
 	fprintf(stdout, "DCLL After List Insert At:\n");
 	mv_dcll_print_forward(plist, print_long_data);
 	mv_dcll_print_reverse(plist, print_long_data);
 
-	// HW: Use and Call the rest of the functions here
+	mv_dcll_insert_before(plist, (data_t)(long long)(1111), (data_t)(long long)(12345), compare_data);
+	mv_dcll_insert_before(plist, (data_t)(long long)(2222), (data_t)(long long)(1003), compare_data);
+	mv_dcll_insert_before(plist, (data_t)(long long)(3333), (data_t)(long long)(234), compare_data);
+	mv_dcll_insert_before(plist, (data_t)(long long)(4444), (data_t)(long long)(78), compare_data);
+	mv_dcll_insert_before(plist, (data_t)(long long)(5555), (data_t)(long long)(9999), compare_data);
+
+	NEW_LINE;
+
+	fprintf(stdout, "DCLL After List Insert Before:\n");
+	mv_dcll_print_forward(plist, print_long_data);
+	mv_dcll_print_reverse(plist, print_long_data);
+
+	mv_dcll_insert_after(plist, (data_t)(long long)(6666), (data_t)(long long)(12345), compare_data);
+	mv_dcll_insert_after(plist, (data_t)(long long)(7777), (data_t)(long long)(1003), compare_data);
+	mv_dcll_insert_after(plist, (data_t)(long long)(8888), (data_t)(long long)(234), compare_data);
+	mv_dcll_insert_after(plist, (data_t)(long long)(9999), (data_t)(long long)(78), compare_data);
+	mv_dcll_insert_after(plist, (data_t)(long long)(9191), (data_t)(long long)(9999), compare_data);
+
+	NEW_LINE;
+
+	fprintf(stdout, "DCLL After List Insert After:\n");
+	mv_dcll_print_forward(plist, print_long_data);
+	mv_dcll_print_reverse(plist, print_long_data);
+
+	mv_dcll_remove_front(plist);
+	mv_dcll_remove_front(plist);
+	mv_dcll_remove_front(plist);
+
+	NEW_LINE;
+
+	fprintf(stdout, "DCLL After List Remove Front:\n");
+	mv_dcll_print_forward(plist, print_long_data);
+	mv_dcll_print_reverse(plist, print_long_data);
+
+	mv_dcll_remove_back(plist);
+	mv_dcll_remove_back(plist);
+	mv_dcll_remove_back(plist);
+
+	NEW_LINE;
+
+	fprintf(stdout, "DCLL After List Remove Back:\n");
+	mv_dcll_print_forward(plist, print_long_data);
+	mv_dcll_print_reverse(plist, print_long_data);
+
+	mv_dcll_remove_at(plist,  0);
+	mv_dcll_remove_at(plist,  5);
+	mv_dcll_remove_at(plist,  12);
+	mv_dcll_remove_at(plist,  18);
+	mv_dcll_remove_at(plist,  22);
+	mv_dcll_remove_at(plist,  99);
+
+	NEW_LINE;
+
+	fprintf(stdout, "DCLL After List Remove At:\n");
+	mv_dcll_print_forward(plist, print_long_data);
+	mv_dcll_print_reverse(plist, print_long_data);
+	
+	mv_dcll_remove_before(plist, (data_t)(long long)(1111), compare_data);
+	mv_dcll_remove_before(plist, (data_t)(long long)(2222), compare_data);
+	mv_dcll_remove_before(plist, (data_t)(long long)(3333),  compare_data);
+	mv_dcll_remove_before(plist, (data_t)(long long)(4444),  compare_data);
+	mv_dcll_remove_before(plist, (data_t)(long long)(5555),  compare_data);
+
+	NEW_LINE;
+
+	fprintf(stdout, "DCLL After List Remove Before:\n");
+	mv_dcll_print_forward(plist, print_long_data);
+	mv_dcll_print_reverse(plist, print_long_data);
+
+	mv_dcll_remove_after(plist, (data_t)(long long)(1111), compare_data);
+	mv_dcll_remove_after(plist, (data_t)(long long)(2222), compare_data);
+	mv_dcll_remove_after(plist, (data_t)(long long)(3333),  compare_data);
+	mv_dcll_remove_after(plist, (data_t)(long long)(4444),  compare_data);
+	mv_dcll_remove_after(plist, (data_t)(long long)(5555),  compare_data);
+
+	NEW_LINE;
+
+	fprintf(stdout, "DCLL After List Remove After:\n");
+	mv_dcll_print_forward(plist, print_long_data);
+	mv_dcll_print_reverse(plist, print_long_data);
+
 
 	mv_dcll_destroy(&plist, print_long_data);
 
