@@ -1,4 +1,4 @@
-Directory : 01_ClassCode
+Directory : 05_Deque_Version_01/01_ClassCode
 
 Files : 1) MV_Deque.h
 	2) MV_Deque.c
