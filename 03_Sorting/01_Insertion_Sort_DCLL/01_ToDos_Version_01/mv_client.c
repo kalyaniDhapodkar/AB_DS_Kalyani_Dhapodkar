@@ -24,14 +24,14 @@ int main(void)
 {
 	p_mv_dcll_t List1 = create_doubly_circular_list();
 
-	for(long long le = 10; le > 0; le--)
+	for(long long le = 1000; le > 0; le--)
 	{
 		mv_dcll_insert_back(List1, (data_t)le);
 	}
 
 	mv_dcll_print_forward(List1, showdata);
 
-	InsertionSort(mv_dcll_get_head(List1), mv_dcll_get_head(List1)->p_next->p_next/*mv_dcll_get_tail(List1)*/, compare);
+	InsertionSort(mv_dcll_get_head(List1), mv_dcll_get_tail(List1), compare);
 
 	mv_dcll_print_forward(List1, showdata);
 

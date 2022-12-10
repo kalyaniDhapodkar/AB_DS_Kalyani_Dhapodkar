@@ -1,7 +1,6 @@
 
 
-//	No Of lines = 101 + 49 = 150
-
+// Headers
 #include	<iostream>
 #include	<ctime>
 
@@ -29,10 +28,6 @@ int main(void)
 	std::cout << "END" << std::endl << std::endl;
 
 	clock_t start = clock();
-	
-	/*MergeSort(array, no_of_elements, [](long a, long b) {
-		return( a > b );
-	});*/
 	
 	MergeSort(array, no_of_elements, [](long a, long b) {
 		if( a % 2 == 0 &&

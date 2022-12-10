@@ -6,18 +6,13 @@ template<typename T_SORT, class Compare>
 static void Merge(T_SORT* array, long long first, long long mid, long long last, Compare compare)
 {
 	// Code
-
-	//	Calculate left sub array size
 	long long left_size = mid - first + 1;
 
-	//	Calculate right sub array size
 	long long right_size = last - (mid+1) + 1;
 
-	//	Allocate left and right sub array;
 	T_SORT*	left = new T_SORT[left_size];
 	T_SORT*	right = new T_SORT[right_size];
 
-	//	Copy left sub array
 	for( long long le = 0; le < left_size; ++le)
 		left[le] = array[first + le];
 
@@ -29,7 +24,6 @@ static void Merge(T_SORT* array, long long first, long long mid, long long last,
 	long long right_index = 0;
 	long long array_index = first;
 
-	//	Merge the two sub array by following the sorting condition
 	while( left_index != left_size && right_index != right_size )
 	{
 		if( compare(left[left_index], right[right_index]) )
@@ -82,16 +76,6 @@ static void Partition(T_SORT* array, long long first, long long last, Compare co
 	}
 }
 
-/**
- * 
- * 	Function:	Merge Sort
- * 
- * 	Identifier	:	MergeSort
- * 	Input:	1) Array
- * 			2) Size
- * 
- * 	Output:	None
- */
 template<typename T_SORT, class Compare>
 extern	void MergeSort(T_SORT* array, long long size, Compare compare)
 {
